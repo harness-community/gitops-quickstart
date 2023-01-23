@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: gitops-kickstarter
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  # Project description
+  description: GitOps Kickstarter
+
+  sourceRepos:
+  - {{ .Values.source.repoURL }}
+
+  # Only permit applications to deploy only to the following namespaces in the same cluster
+  destinations:
+  - namespace: default
+    server: {{ .Values.destination.server }}
+  - namespace: infra
+    server: {{ .Values.destination.server }}
+  - namespace: demo-apps
+    server: {{ .Values.destination.server }}
+  - namespace: argocd
+    server: {{ .Values.destination.server }}
+  - namespace: cosign-system
+    server: {{ .Values.destination.server }}
+
+  # Deny all cluster-scoped resources from being created, except for Namespace,MutatingWebhookConfiguration,ValidatingWebhookConfiguration,ClusterRoleBinding,ClusterRole,CustomResourceDefinition
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  - group: admissionregistration.k8s.io
+    kind: MutatingWebhookConfiguration
+  - group: admissionregistration.k8s.io
+    kind: ValidatingWebhookConfiguration
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRole
+  - group: apiextensions.k8s.io
+    kind: CustomResourceDefinition
+  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy,
+  namespaceResourceBlacklist:
+  - group: ''
+    kind: ResourceQuota
+  - group: ''
+    kind: LimitRange
+  - group: ''
+    kind: NetworkPolicy
+
+  # Deny all namespaced-scoped resources from being created, except for Deployment,StatefulSet,Job,SA,Secret,ConfigMap etc.,
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: 'apps'
+    kind: StatefulSet
+  - group: 'batch'
+    kind: Job
+  - group: ""
+    kind: Service
+  - group: ""
+    kind: ConfigMap
+  - group: ""
+    kind: Secret
+  - group: rbac.authorization.k8s.io
+    kind: "*"
+  - group: ""
+    kind: PersistentVolumeClaim
+  - group: ""
+    kind: ServiceAccount
+  - group: policy.sigstore.dev
+    kind: "*"
+
+  # Enables namespace orphaned resource monitoring.
+  orphanedResources:
+    warn: false

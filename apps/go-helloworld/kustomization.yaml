@@ -1,0 +1,20 @@
+namespace: demo-apps
+
+resources:
+  - "https://github.com/kameshsampath/go-hello-world//config?ref=main"
+
+# images:
+#   # The container registry image name to be set in the manifest
+#   # currently points to ghcr.io/kameshsampath/go-hello-world
+#   # you can fork the project https://github.com/kameshsampath/go-hello-world
+#   # build and push to your container registry and set the following attributes
+#   - # the image name in https://github.com/kameshsampath/go-hello-world/blob/main/config/deployment.yaml#L17
+#     name: ghcr.io/kameshsampath/go-hello-world
+#     # this could be replaced with image pointing to the image
+#     # you want to set typically to your image repository
+#     newName: docker.io/kameshsampath/go-hello-world
+#     # the image tag that to be set e.g. 0.0.1
+#     # newTag: 0.0.1
+#     # the sha256 digest of the image that to be set
+#     # either newTag or digest could be set
+#     # digest:

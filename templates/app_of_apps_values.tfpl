@@ -1,0 +1,17 @@
+destination:
+  server: https://kubernetes.default.svc
+source:
+  # When forked updated to your fork
+  repoURL: ${gitOpsRepoURL}
+  # the branch to use
+  targetRevision: ${gitopsRepoRevision}
+sigstore:
+  policyController: 
+    version: 0.3.9
+argocd:
+  imageUpdater:
+    logLevel: debug
+    version: 0.8.1
+helloWorld:
+  image:
+    repo: ${helloWorldImageRepo}

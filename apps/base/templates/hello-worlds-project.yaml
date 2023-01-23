@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: hello-worlds
+  namespace: argocd
+  # Finalizer that ensures that project is not deleted until it is not referenced by any application
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  # Project description
+  description: Hello Worlds deployed and managed using GitOps
+
+  sourceRepos:
+  - {{ .Values.source.repoURL }}
+
+  # Only permit applications to deploy only to the following namespaces in the same cluster
+  destinations:
+  - namespace: demo-apps
+    server: https://kubernetes.default.svc
+
+  # Deny all cluster-scoped resources from being created, except for Namespace,MutatingWebhookConfiguration,ValidatingWebhookConfiguration,ClusterRoleBinding,ClusterRole,CustomResourceDefinition
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy,
+  namespaceResourceBlacklist:
+  - group: ''
+    kind: ResourceQuota
+  - group: ''
+    kind: LimitRange
+  - group: ''
+    kind: NetworkPolicy
+
+  # Deny all namespaced-scoped resources from being created, except for Deployment,StatefulSet,Job,SA,Secret,ConfigMap etc.,
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: "*"
+  - group: 'batch'
+    kind: Job
+  - group: ""
+    kind: Service
+  - group: ""
+    kind: ConfigMap
+  - group: ""
+    kind: Secret
+  - group: rbac.authorization.k8s.io
+    kind: "*"
+  - group: ""
+    kind: PersistentVolumeClaim
+  - group: ""
+    kind: ServiceAccount
+  - group: policy.sigstore.dev
+    kind: "*"
+
+  # Enables namespace orphaned resource monitoring.
+  orphanedResources:
+    warn: false
