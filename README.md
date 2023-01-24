@@ -56,6 +56,7 @@ Run the following command to create the ArgoCD app that house base components re
 kubectl apply -f app.yaml
 ```
 
+<<<<<<< HEAD
 ## Building  `hello-world` application
 
 ```shell
@@ -101,6 +102,8 @@ If all went well you ArgoCD dashboard should look like.
 
 Make changes to `$TUTORIAL_HOME/server.go`, build and push a new image to see ArgoCD synching your deployments to latest image digest.
 
+=======
+>>>>>>> 92d6c05 (dont apply argo app of apps by default)
 ## Clean up
 
 ```shell
