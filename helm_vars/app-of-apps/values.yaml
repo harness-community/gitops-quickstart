@@ -1,3 +1,4 @@
+baseProjectName: "gitops-kickstarter"
 destination:
   server: https://kubernetes.default.svc
 source:
@@ -10,8 +11,4 @@ sigstore:
     version: 0.3.9
 argocd:
   imageUpdater:
-    logLevel: debug
-    version: 0.8.2
-helloWorld:
-  image:
-    repo: docker.io/kameshsampath/go-hello-world
+    version: 0.8.1

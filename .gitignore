@@ -36,3 +36,4 @@ override.tf.json
 delegate/*-key.json
 delegate/*-delegate.yml
 registry-data
+.tfplan
