@@ -1,0 +1,14 @@
+baseProjectName: "gitops-kickstarter"
+destination:
+  server: https://kubernetes.default.svc
+source:
+  # When forked updated to your fork
+  repoURL: https://github.com/kameshsampath/gitops-quickstart
+  # the branch to use
+  targetRevision: main
+sigstore:
+  policyController: 
+    version: 0.3.9
+argocd:
+  imageUpdater:
+    version: 0.8.1

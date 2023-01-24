@@ -36,6 +36,10 @@ override.tf.json
 delegate/*-key.json
 delegate/*-delegate.yml
 registry-data
+<<<<<<< HEAD
 .tfplan
 work/**
 !work/.gitkeep
+=======
+.tfplan
+>>>>>>> 41807a9 (updates)

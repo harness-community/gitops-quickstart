@@ -19,13 +19,9 @@ sigstore:
 argocd:
   imageUpdater:
     image:
-<<<<<<< HEAD
       # image updater tag to deploy 
       tag: v0.12.2
     # image updater helm chart version
-=======
-      tag: v0.12.2
->>>>>>> a7696ac (fix: add 'v' to image updater tag)
     version: 0.8.2
     # image updater log level
     logLevel: debug
