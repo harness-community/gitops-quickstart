@@ -12,6 +12,8 @@ spec:
 
   sourceRepos:
   - {{ .Values.source.repoURL }}
+  - https://argoproj.github.io/argo-helm
+  - https://sigstore.github.io/helm-charts
 
   # Only permit applications to deploy only to the following namespaces in the same cluster
   destinations:
