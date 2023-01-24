@@ -12,3 +12,8 @@ sigstore:
 argocd:
   imageUpdater:
     version: 0.8.1
+    logLevel: debug
+    version: 0.8.2
+helloWorld:
+  image:
+    repo: ${helloWorldImageRepo}
