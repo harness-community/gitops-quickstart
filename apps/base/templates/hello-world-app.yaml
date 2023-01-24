@@ -20,7 +20,7 @@ metadata:
     # the orignal image name in https://github.com/kameshsampath/go-hello-world/blob/main/config/deployment.yaml#L17. No need to change this.
     argocd-image-updater.argoproj.io/hwimage.kustomize.image-name: ghcr.io/kameshsampath/go-hello-world
     # use semantic versioning for new image updates. https://semver.org/
-    argocd-image-updater.argoproj.io/hwimage.update-strategy: semver
+    argocd-image-updater.argoproj.io/hwimage.update-strategy: digest
     # froce update deployment where the image is not updated your image repo
     argocd-image-updater.argoproj.io/hwimage.force-update: "true"
 spec:
