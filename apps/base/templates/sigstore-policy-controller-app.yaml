@@ -9,7 +9,7 @@ metadata:
   labels:
     name: sigstore-policy-controller
 spec:
-  project: gitops-kickstarter
+  project: {{ .Values.baseProjectName }}
   source:
 
     # Using the Charts Repo

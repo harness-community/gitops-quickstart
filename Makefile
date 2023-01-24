@@ -5,30 +5,34 @@ SHELL := /usr/bin/env bash
 CURRENT_DIR = $(shell pwd)
 TFVARS_FILE ?= terraform.tfvars
 
-.PHONY:	clean
-clean:
-	rm -rf .terraform .terraform.lock.hcl
+help: ## Show this help
+		@echo Please specify one or more build target. The choices are:
+		@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "$(INFO_COLOR)%-30s$(NO_COLOR) %s\n", $$1, $$2}'
 
-.PHONY: format
-format:	
-	terraform fmt --recursive $(CURRENT_DIR)
+argoAdminPassword:	## Decrypt and show ArgoCD admin password
+	@terraform output -raw argocd_admin_password
 
-.PHONY:	init
-init:
-	terraform init
+clean:	## Clean up all terraform resources
+	rm -rf .terraform .terraform.lock.hcl	.tfplan
 
-.PHONY:	plan
-plan:	format
-	terraform plan -var-file="$(TFVARS_FILE)"
+format:	## Run terraform format
+	@terraform fmt --recursive $(CURRENT_DIR)
 
-.PHONY:	validate
-validate:	format
-	terraform validate
+init:	## Run terraform init
+	@terraform init
 
-.PHONY:	apply
-apply:	validate
-	terraform apply -var-file="$(TFVARS_FILE)"
+.tfplan:	format	## Plan the terraform deployment
+	@terraform plan -var-file="$(TFVARS_FILE)" -out ".tfplan"
 
-.PHONY:	destroy
-destroy:
-	terraform destroy -var-file="$(TFVARS_FILE)"
+validate:	format	## Run terraform validate to ensure all resources are valid
+	@terraform validate
+
+apply:## Create the resources using existing plan file ".tfplan"
+	@terraform apply -var-file="$(TFVARS_FILE)"
+
+plan:	validate	.tfplan	## Create the dpeloyment plan ; GKE, deploy ArgoCD, create App of Apps
+
+destroy:	## Destroys and cleans up the resources created by terraform
+	@terraform apply -destroy -var-file="$(TFVARS_FILE)"
+
+.PHONY:	argoAdminPassword	clean	create	destroy	format	help	plan	init	format	validate

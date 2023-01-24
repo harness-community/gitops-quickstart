@@ -9,7 +9,7 @@ metadata:
   labels:
     name: argocd-image-updater
 spec:
-  project: gitops-kickstarter
+  project: {{ .Values.baseProjectName }}
   source:
 
     # Using the Charts Repo
@@ -20,6 +20,8 @@ spec:
     helm:
       releaseName: argocd-image-updater
       values: |
+        image:
+          tag: {{ .Values.argocd.imageUpdater.image.tag }}
         config:
           logLevel: {{ .Values.argocd.imageUpdater.logLevel }}
           {{- with .Values.argocd.imageUpdater.registries }}

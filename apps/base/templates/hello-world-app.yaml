@@ -1,3 +1,4 @@
+{{- if .Values.helloWorld.deploy -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -19,7 +20,7 @@ metadata:
     # the orignal image name in https://github.com/kameshsampath/go-hello-world/blob/main/config/deployment.yaml#L17. No need to change this.
     argocd-image-updater.argoproj.io/hwimage.kustomize.image-name: ghcr.io/kameshsampath/go-hello-world
     # use semantic versioning for new image updates. https://semver.org/
-    argocd-image-updater.argoproj.io/hwimage.update-strategy: semver
+    argocd-image-updater.argoproj.io/hwimage.update-strategy: digest
     # froce update deployment where the image is not updated your image repo
     argocd-image-updater.argoproj.io/hwimage.force-update: "true"
 spec:
@@ -78,3 +79,4 @@ spec:
   # circumstances. Setting to zero will store no history. This will reduce storage used. Increasing will increase the
   # space used to store the history, so we do not recommend increasing it.
   revisionHistoryLimit: 10
+{{- end }}

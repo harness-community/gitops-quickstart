@@ -1,3 +1,4 @@
+{{- if .Values.helloWorld.deploy -}}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
@@ -55,3 +56,4 @@ spec:
   # Enables namespace orphaned resource monitoring.
   orphanedResources:
     warn: false
+{{- end }}
