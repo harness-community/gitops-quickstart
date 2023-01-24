@@ -21,7 +21,7 @@ spec:
       releaseName: argocd-image-updater
       values: |
         image:
-          tag: {{ .Values.argocd.image.tag }}
+          tag: {{ .Values.argocd.imageUpdater.image.tag }}
         config:
           logLevel: {{ .Values.argocd.imageUpdater.logLevel }}
           {{- with .Values.argocd.imageUpdater.registries }}
