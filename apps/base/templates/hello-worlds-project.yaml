@@ -1,4 +1,4 @@
-{{- if Values.helloWorld.deploy -}}
+{{- if .Values.helloWorld.deploy -}}
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:

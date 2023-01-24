@@ -1,4 +1,4 @@
-{{- if Values.helloWorld.deploy -}}
+{{- if .Values.helloWorld.deploy -}}
 apiVersion: v1
 kind: Namespace
 metadata:
