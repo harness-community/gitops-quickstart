@@ -69,9 +69,6 @@ resource "google_container_node_pool" "primary_nodes" {
 }
 
 resource "local_file" "kubeconfig" {
-  depends_on = [
-    google_container_cluster.primary
-  ]
   content = templatefile("${path.module}/templates/kubeconfig-template.tfpl", {
     cluster_name    = google_container_cluster.primary.name
     endpoint        = google_container_cluster.primary.endpoint

@@ -20,8 +20,10 @@ This kickstart repository resources that will setup the base infrastructure that
 Running the following command which will setup a GKE cluster using terraform,
 
 ```shell
-make init apply
+make create
 ```
+
+> **NOTE**: The terraform will take approx ~5-10mins or even more based on your bandwidth.
 
 ### ArgoCD Deployment Details
 
@@ -35,6 +37,14 @@ terraform output -raw argocd_admin_password
 
 ```shell
 terraform output -raw argocd_service_url
+```
+
+### Create App of Apps
+
+Run the following command to create the ArgoCD app that house base components required to deploy other applications,
+
+```shell
+kubectl apply -f app.yaml
 ```
 
 ## Clean up

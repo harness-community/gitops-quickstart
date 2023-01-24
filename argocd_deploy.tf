@@ -30,9 +30,6 @@ resource "random_password" "argocd_admin_password" {
 }
 
 resource "helm_release" "argocd" {
-  depends_on = [
-    google_container_cluster.primary
-  ]
   name             = "argocd"
   repository       = "https://argoproj.github.io/argo-helm"
   chart            = "argo-cd"
@@ -48,10 +45,8 @@ resource "helm_release" "argocd" {
   ]
 }
 
-
 data "kubernetes_service" "argocd" {
   depends_on = [
-    google_container_cluster.primary,
     helm_release.argocd
   ]
   metadata {
