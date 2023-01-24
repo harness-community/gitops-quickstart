@@ -12,3 +12,9 @@ sigstore:
 argocd:
   imageUpdater:
     version: 0.8.1
+# the hello world demo application
+helloWorld:
+  # flag to deploy hello world
+  deploy: true
+  image:
+    repo: docker.io/kameshsampath/go-hello-world:latest
