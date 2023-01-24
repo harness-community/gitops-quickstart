@@ -5,17 +5,20 @@ destination:
 # The Git server to used by the application
 source:
   # the source repository on git
-  repoURL: 
+  repoURL:
   # The branch/tag to use for the source repo
   targetRevision: main
 sigstore:
-  policyController: 
+  policyController:
     version: 0.3.9
 argocd:
   imageUpdater:
-    version: 0.8.1
+    image:
+      tag: 0.12.2
+    version: 0.8.2
     logLevel: info
     registries: []
 helloWorld:
+  deploy: false
   image:
     repo: ""

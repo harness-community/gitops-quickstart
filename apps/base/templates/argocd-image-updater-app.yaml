@@ -20,6 +20,8 @@ spec:
     helm:
       releaseName: argocd-image-updater
       values: |
+        image:
+          tag: {{ .Values.argocd.image.tag }}
         config:
           logLevel: {{ .Values.argocd.imageUpdater.logLevel }}
           {{- with .Values.argocd.imageUpdater.registries }}
